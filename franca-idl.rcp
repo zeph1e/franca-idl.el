@@ -1,0 +1,5 @@
+(:name franca-idl
+       :description "A major mode for Franca IDL"
+       :website "https://github.com/zeph1e/franca-idl.el"
+       :type github
+       :pkgname "zeph1e/franca-idl.el")

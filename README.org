@@ -1,0 +1,56 @@
+* franca-idl.el
+
+** What's Franca
+
+[[https://code.google.com/a/eclipselabs.org/p/franca/][Franca]] is a framework for defining and transforming interface.
+
+** What's franca-idl.el?
+
+This elisp script package, *franca-idl.el* is an emacs major mode which highlights Franca IDL keywords and
+provides language specific indentation.
+
+* Installation
+
+** el-get
+
+The recipe of this package is not yet in el-get official repository, you should download and copy the recipe
+into your local directory which are added to *el-get-recipe-path*.
+
+Assume that you already added `~/.emacs.d/recipes/` into *el-get-recipe-path*:
+
+#+NAME: el-get recipe
+#+BEGIN_SRC sh
+$ wget https://raw.githubusercontent.com/zeph1e/franca-idl.el/master/franca-idl.rcp
+$ cp franca-idl.rcp ~/.emacs.d/recipes/
+#+END_SRC
+
+And then add a following line into your emacs init script:
+
+#+NAME: el-get bundle
+#+BEGIN_SRC emacs-lisp
+(el-get-bundle franca-idl)
+#+END_SRC
+
+** Manual
+
+Just download and add following lines into your emacs init script:
+
+#+NAME: manual require
+#+BEGIN_SRC emacs-lisp
+;; if you placed franca-idl.el into ~/.emacs.d/franca/
+(add-to-list 'load-path "~/.emacs.d/franca")
+(require 'franca-idl-mode)
+#+END_SRC
+
+Otherwise, if you want the script be loaded when it is actually being used, use `autoload` than above.
+
+#+NAME: manual autolaod
+#+BEGIN_SRC emacs-lisp
+;; if you placed franca-idl.el into ~/.emacs.d/franca/
+(autoload 'franca-idl-mode "franca/franca-idl" t nil)
+(add-to-list 'auto-mode-alist '("\\.fidl\\'" . franca-idl-mode))
+#+END_SRC
+
+* License
+
+[[http://www.wtfpl.net/txt/copying][WTFPL version 2]]
