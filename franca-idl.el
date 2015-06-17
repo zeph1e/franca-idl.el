@@ -1,4 +1,15 @@
-;;; franca-idl-mode.el
+;;; franca-idl.el
+
+;; Copyright (C) 2015 Yunsik Jang
+
+;; Author: Yunsik Jang <doomsday@kldp.org>
+;; Created: 16 Jun 2015
+
+;; Keywords: languages
+;; Homepage: http://github.com/zeph1e/franca-idl.el
+;; License: WTFPL version 2, grab your copy here: http://www.wtfpl.net
+
+;; This file is not part of GNU Emacs.
 
 (defgroup franca-idl-mode nil
 "An emacs major mode which provides syntax highlighting and indentation for Franca IDL."

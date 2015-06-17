@@ -1,20 +1,18 @@
 * franca-idl.el
 
-** What's Franca
+** What's Franca?
 
 [[https://code.google.com/a/eclipselabs.org/p/franca/][Franca]] is a framework for defining and transforming interface.
 
 ** What's franca-idl.el?
 
-This elisp script package, *franca-idl.el* is an emacs major mode which highlights Franca IDL keywords and
-provides language specific indentation.
+This elisp script package, *franca-idl.el* is an emacs major mode which highlights Franca IDL keywords and provides language specific indentation.
 
 * Installation
 
 ** el-get
 
-The recipe of this package is not yet in el-get official repository, you should download and copy the recipe
-into your local directory which are added to *el-get-recipe-path*.
+The recipe of this package is not yet in el-get official repository, you should download and copy the recipe into your local directory which are added to *el-get-recipe-path*.
 
 Assume that you already added `~/.emacs.d/recipes/` into *el-get-recipe-path*:
 
@@ -53,4 +51,4 @@ Otherwise, if you want the script be loaded when it is actually being used, use 
 
 * License
 
-[[http://www.wtfpl.net/txt/copying][WTFPL version 2]]
+[[http://www.wtfpl.net][WTFPL version 2]]
