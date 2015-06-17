@@ -1,8 +1,10 @@
 ;;; franca-idl-mode.el
 
-(defgroup 'franca-idl-mode
+(defgroup franca-idl-mode nil
+"An emacs major mode which provides syntax highlighting and indentation for Franca IDL."
   :prefix "franca-idl-"
-  :group 'languages)
+  :group 'languages
+  :link '(url-link "https://github.com/zeph1e/franca-idl"))
 
 (defvar franca-idl-mode-hook nil
   "Franca IDL mode hook.")
