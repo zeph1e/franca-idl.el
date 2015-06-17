@@ -84,6 +84,24 @@
           (indent-line-to cur-indent)
         (indent-line-to 0)))))
 
+(defun franca-idl-indent-line2 ()
+  "Indent current line as Franca IDL code."
+  (interactive)
+  (let ((savep (> (current-column) (current-indentation)))
+        (indent (condition-case nil (max (franca-idl-calculate-indentation) 0)
+                  (error 0))))
+    (if savep
+        (save-excursion (indent-line-to indent))
+      (indent-line-to indent))))
+
+;; FIXME : write a new rule
+(defun franca-idl-calculate-indentation ()
+  "Return the column to which the current line should be indented."
+  (save-excursion
+    (forward-line -1)
+    (beginning-of-line)
+))
+
 (defvar franca-idl-syntax-table
   (let ((st (make-syntax-table)))
     (modify-syntax-entry ?/ ". 124" st)
@@ -97,6 +115,9 @@
    ("\\(<\\)\\*\\*" (1 "< c")) ("\\*\\*\\(>\\)" (1 "> c")))
    "Syntactic keywords for `franca-idl-mode'.")
 
+;; FIXME: make me work
+(defun franca-idl-syntactic-face-function nil)
+
 ;;;###autoload
 (defun franca-idl-mode()
   (interactive)
@@ -105,6 +126,7 @@
         major-mode 'franca-idl-mode)
   (set-syntax-table franca-idl-syntax-table)
   (set (make-local-variable 'syntax-propertize-function) franca-idl-syntax-propertize-function)
+;;  (set (make-local-variable 'font-lock-syntactic-face-function) franca-idl-syntactic-face-function)
   (use-local-map franca-idl-mode-map)
   (set (make-local-variable 'font-lock-defaults) '(franca-idl-font-lock-keywords))
   (set (make-local-variable 'indent-line-function) 'franca-idl-indent-line)
