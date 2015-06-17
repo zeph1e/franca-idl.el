@@ -17,7 +17,7 @@ The recipe of this package is not yet in el-get official repository, you should
 download and copy the recipe into your local directory which are added
 to *el-get-recipe-path*.
 
-Assume that you already added ~~/.emacs.d/recipes/~ into *el-get-recipe-path*:
+Assume that you already added ~\~/.emacs.d/recipes/~ into *el-get-recipe-path*:
 
 #+NAME: el-get recipe
 #+BEGIN_SRC sh
