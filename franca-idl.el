@@ -11,7 +11,7 @@
 
 ;; This file is not part of GNU Emacs.
 
-(defgroup franca-idl-mode nil
+(defgroup franca-idl nil
 "An emacs major mode which provides syntax highlighting and indentation for Franca IDL."
   :prefix "franca-idl-"
   :group 'languages
@@ -113,4 +113,4 @@
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.fidl\\'" . franca-idl-mode))
 
-(provide 'franca-idl-mode)
+(provide 'franca-idl)
