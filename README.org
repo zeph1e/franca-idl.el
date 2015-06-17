@@ -6,15 +6,18 @@
 
 ** What's franca-idl.el?
 
-This elisp script package, *franca-idl.el* is an emacs major mode which highlights Franca IDL keywords and provides language specific indentation.
+This elisp script package, *franca-idl.el* is an emacs major mode which
+highlights Franca IDL keywords and provides language specific indentation.
 
 * Installation
 
 ** el-get
 
-The recipe of this package is not yet in el-get official repository, you should download and copy the recipe into your local directory which are added to *el-get-recipe-path*.
+The recipe of this package is not yet in el-get official repository, you should
+download and copy the recipe into your local directory which are added
+to *el-get-recipe-path*.
 
-Assume that you already added `~/.emacs.d/recipes/` into *el-get-recipe-path*:
+Assume that you already added ~~/.emacs.d/recipes/~ into *el-get-recipe-path*:
 
 #+NAME: el-get recipe
 #+BEGIN_SRC sh
@@ -37,15 +40,17 @@ Just download and add following lines into your emacs init script:
 #+BEGIN_SRC emacs-lisp
 ;; if you placed franca-idl.el into ~/.emacs.d/franca/
 (add-to-list 'load-path "~/.emacs.d/franca")
-(require 'franca-idl-mode)
+(require 'franca-idl)
 #+END_SRC
 
-Otherwise, if you want the script be loaded when it is actually being used, use `autoload` than above.
+Otherwise, if you want to make the script be loaded when it is actually being
+used, use ~autoload~ than above.
 
 #+NAME: manual autolaod
 #+BEGIN_SRC emacs-lisp
 ;; if you placed franca-idl.el into ~/.emacs.d/franca/
-(autoload 'franca-idl-mode "franca/franca-idl" t nil)
+(add-to-list 'load-path "~/.emacs.d/franca")
+(autoload 'franca-idl-mode "franca-idl" t nil)
 (add-to-list 'auto-mode-alist '("\\.fidl\\'" . franca-idl-mode))
 #+END_SRC
 
