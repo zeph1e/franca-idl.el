@@ -37,33 +37,39 @@
   (interactive "p")
   (insert-char ?})
   (franca-idl-indent-line))
-;; (defconst franca-idl-keywords '("array" "of"
-;;                                 "enumeration" "extends"
-;;                                 "struct"
-;;                                 "union"
-;;                                 "map" "to"
-;;                                 "typedef" "is"
-;;                                 "typeCollection"
-;;                                 "interface"
-;;                                 "version" "major" "minor"
-;;                                 "attribute" "readonly" "noSubscriptions"
-;;                                 "method" "in" "out" "error" "fireAndForget"
-;;                                 "broadcast" "selective"
-;;                                 "contract" "PSM" "initial" "state" "call" "signal" "on"
-;;                                 "package" "import" "model" "from"))
-;; (defconst franca-idl-types '("UInt8" "Int8" "UInt16" "Int16" "UInt32" "Int32" "UInt64"
-;;                              "Int64" "Boolean" "Float" "Double" "String" "ByteBuffer"))
+(defconst franca-idl-keywords '("array" "of"
+                                "enumeration" "extends"
+                                "struct"
+                                "union"
+                                "map" "to"
+                                "typedef" "is"
+                                "typeCollection"
+                                "interface"
+                                "version" "major" "minor"
+                                "attribute" "readonly" "noSubscriptions"
+                                "method" "in" "out" "error" "fireAndForget"
+                                "broadcast" "selective"
+                                "contract" "PSM" "initial" "state" "call" "signal" "on"
+                                "package" "import" "model" "from"))
 
-;; (defconst franca-idl-keywords-regexp (regexp-opt franca-idl-keywords 'words))
-;; (defconst franca-idl-types-regexp (regexp-opt franca-idl-types 'words))
+(defconst franca-idl-types '("UInt8" "Int8" "UInt16" "Int16" "UInt32" "Int32" "UInt64"
+                             "Int64" "Boolean" "Float" "Double" "String" "ByteBuffer"))
 
-(defconst franca-idl-font-lock-keywords
-  (list
-   '("\\<\\(PSM\\|a\\(?:rray\\|ttribute\\)\\|broadcast\\|c\\(?:all\\|ontract\\)\\|e\\(?:numeration\\|rror\\|xtends\\)\\|f\\(?:ireAndForget\\|rom\\)\\|i\\(?:mport\\|n\\(?:itial\\|terface\\)\\|[ns]\\)\\|m\\(?:a\\(?:jor\\|p\\)\\|ethod\\|inor\\|odel\\)\\|noSubscriptions\\|o\\(?:ut\\|[fn]\\)\\|package\\|readonly\\|s\\(?:elective\\|ignal\\|t\\(?:ate\\|ruct\\)\\)\\|t\\(?:o\\|ype\\(?:Collection\\|def\\)\\)\\|\\(?:un\\|vers\\)ion\\)\\>"
- . font-lock-keyword-face) ; builtin keywords
-   '("\\<\\(?:B\\(?:oolean\\|yteBuffer\\)\\|Double\\|Float\\|Int\\(?:16\\|32\\|64\\|8\\)\\|String\\|UInt\\(?:16\\|32\\|64\\|8\\)\\)\\>" ; primitive types
- . font-lock-type-face))
-  "Keyword highlighting for Franca IDL mode.")
+;; (defconst franca-idl-annotations '("description"
+;;                                    "author"
+;;                                    "experimental"
+;;                                    "deprecated"
+;;                                    "see"
+;;                                    "param"
+;;                                    "high-volume"
+;;                                    "high-frequency"
+;;                                    "source-uri"
+;;                                    "source-alias"
+;;                                    "details"))
+
+(defvar franca-idl-keywords-regexp (eval-when-compile (regexp-opt franca-idl-keywords 'words)))
+(defvar franca-idl-types-regexp (eval-when-compile (regexp-opt franca-idl-types 'words)))
+;; (defvar franca-idl-annotations-regexp (regexp-opt franca-idl-annotations 'words))
 
 (defun franca-idl-indent-line (&optional ignore-current)
   "Indent current line as Franca IDL code."
@@ -142,7 +148,10 @@ Keybindings:
   (set-syntax-table franca-idl-syntax-table)
   (set (make-local-variable 'syntax-propertize-function) franca-idl-syntax-propertize-function)
   (use-local-map franca-idl-mode-map)
-  (set (make-local-variable 'font-lock-defaults) '(franca-idl-font-lock-keywords))
+  ;; (set (make-local-variable 'font-lock-defaults) '(franca-idl-font-lock-keywords))
+  (set (make-local-variable 'font-lock-defaults)
+       (list (list (cons franca-idl-keywords-regexp 'font-lock-keyword-face)
+                   (cons franca-idl-types-regexp 'font-lock-type-face))))
   (set (make-local-variable 'indent-line-function) 'franca-idl-indent-line)
   (run-hooks 'franca-idl-mode-hook))
 
