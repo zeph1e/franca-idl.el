@@ -31,7 +31,7 @@
 (defun franca-idl-open-brace (p)
   (interactive "p")
   (insert-char ?{)
-  (franca-idl-indent-line))
+  (franca-idl-indent-line t))
 
 (defun franca-idl-close-brace (p)
   (interactive "p")
@@ -65,7 +65,7 @@
  . font-lock-type-face))
   "Keyword highlighting for Franca IDL mode.")
 
-(defun franca-idl-indent-line ()
+(defun franca-idl-indent-line (&optional ignore-current)
   "Indent current line as Franca IDL code."
   (interactive)
   (let* ((savep (point))
@@ -73,30 +73,32 @@
           (save-excursion
             (back-to-indentation)
             (if (>= (point) savep) (setq savep nil))
-            (max (franca-idl-calculate-indentation) 0))))
+            (max (franca-idl-calculate-indentation ignore-current) 0))))
     (if (null indent-col) 'noindent
       (if savep
           (save-excursion (indent-line-to indent-col))
         (indent-line-to indent-col)))))
 
-(defun franca-idl-calculate-indentation ()
+(defun franca-idl-calculate-indentation (&optional ignore-current)
   "Return the column to which the current line should be indented."
   (save-excursion
-    (let ((paren 0) indent basep)
-      (goto-char (min (1+ (point)) (point-max))) ; for current line
+    (let ((curp (point))(paren 0) indent basep)
+      (unless ignore-current
+        (goto-char (min (1+ curp) (point-max)))) ; for current line
       (condition-case nil
           (while (search-backward-regexp "[{}]") ; find unmatching opening brace
             (if (char-equal ?{ (char-after))
                 (progn
                   (setq paren (1+ paren)) ; opening brace
                   (if (> paren 0) (error "do break")))
-              (if (= (line-beginning-position) (point)) ; if } is at the first column, don't go further
+              ;; if } is at the first column, don't go further unless user entered it
+              (if (and (/= curp (point)) (= (line-beginning-position) (point)))
                   (error "no need to go further"))
               (setq paren (1- paren))))
         (error nil))
       (if (<= paren 0) 0 ; no unmatcing open brace found
         ;; calculate indent base position
-        ;;   mehotd aa {
+        ;;   method aa {
         ;;   _ <-- base position
         ;; We need to find another open brace in same line for the case like:
         ;;   method aa { in {
