@@ -23,9 +23,20 @@
 (defvar franca-idl-mode-map
   (let ((map (make-sparse-keymap)))
     ;; (define-key map (kbd "C-c C-e") 'franca-idl-export)
+    (define-key map (kbd "{") 'franca-idl-open-brace)
+    (define-key map (kbd "}") 'franca-idl-close-brace)
     map)
   "Keymap for Franca IDL mode.")
 
+(defun franca-idl-open-brace (p)
+  (interactive "p")
+  (insert-char ?{)
+  (franca-idl-indent-line))
+
+(defun franca-idl-close-brace (p)
+  (interactive "p")
+  (insert-char ?})
+  (franca-idl-indent-line))
 ;; (defconst franca-idl-keywords '("array" "of"
 ;;                                 "enumeration" "extends"
 ;;                                 "struct"
@@ -120,7 +131,11 @@
 
 ;;;###autoload
 (define-derived-mode franca-idl-mode prog-mode "Franca-IDL"
-  "Major mode to help editing Franca IDL code."
+  "Major mode to help editing Franca IDL code.
+
+Keybindings:
+\\{franca-idl-mode-map}
+"
   (interactive)
   (set-syntax-table franca-idl-syntax-table)
   (set (make-local-variable 'syntax-propertize-function) franca-idl-syntax-propertize-function)
