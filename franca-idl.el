@@ -37,25 +37,32 @@
   (interactive "p")
   (insert-char ?})
   (franca-idl-indent-line))
-(defconst franca-idl-keywords '("array" "of"
-                                "enumeration" "extends"
-                                "struct"
-                                "union"
-                                "map" "to"
-                                "typedef" "is"
-                                "typeCollection"
-                                "interface"
-                                "version" "major" "minor"
-                                "attribute" "readonly" "noSubscriptions"
-                                "method" "in" "out" "error" "fireAndForget"
-                                "broadcast" "selective"
-                                "contract" "PSM" "initial" "state" "call" "signal" "on"
-                                "package" "import" "model" "from"))
 
-(defconst franca-idl-types '("UInt8" "Int8" "UInt16" "Int16" "UInt32" "Int32" "UInt64"
-                             "Int64" "Boolean" "Float" "Double" "String" "ByteBuffer"))
 
-;; (defconst franca-idl-annotations '("description"
+(defvar franca-idl-keywords-regexp
+  (eval-when-compile (regexp-opt
+                      '("array" "of"
+                        "enumeration" "extends"
+                        "struct"
+                        "union"
+                        "map" "to"
+                        "typedef" "is"
+                        "typeCollection"
+                        "interface"
+                        "version" "major" "minor"
+                        "attribute" "readonly" "noSubscriptions"
+                        "method" "in" "out" "error" "fireAndForget"
+                        "broadcast" "selective"
+                        "contract" "PSM" "initial" "state" "call" "signal" "on"
+                        "package" "import" "model" "from") 'words)))
+
+(defvar franca-idl-types-regexp
+  (eval-when-compile (regexp-opt
+                      '("UInt8" "Int8" "UInt16" "Int16" "UInt32" "Int32" "UInt64"
+                             "Int64" "Boolean" "Float" "Double" "String" "ByteBuffer") 'words)))
+
+;; (defvar franca-idl-annotations-regexp
+;;   (eval-when-compile (regexp-opt '("description"
 ;;                                    "author"
 ;;                                    "experimental"
 ;;                                    "deprecated"
@@ -65,11 +72,7 @@
 ;;                                    "high-frequency"
 ;;                                    "source-uri"
 ;;                                    "source-alias"
-;;                                    "details"))
-
-(defvar franca-idl-keywords-regexp (eval-when-compile (regexp-opt franca-idl-keywords 'words)))
-(defvar franca-idl-types-regexp (eval-when-compile (regexp-opt franca-idl-types 'words)))
-;; (defvar franca-idl-annotations-regexp (regexp-opt franca-idl-annotations 'words))
+;;                                    "details") 'words))
 
 (defun franca-idl-indent-line (&optional ignore-current)
   "Indent current line as Franca IDL code."
@@ -144,11 +147,9 @@
 Keybindings:
 \\{franca-idl-mode-map}
 "
-  (interactive)
   (set-syntax-table franca-idl-syntax-table)
   (set (make-local-variable 'syntax-propertize-function) franca-idl-syntax-propertize-function)
   (use-local-map franca-idl-mode-map)
-  ;; (set (make-local-variable 'font-lock-defaults) '(franca-idl-font-lock-keywords))
   (set (make-local-variable 'font-lock-defaults)
        (list (list (cons franca-idl-keywords-regexp 'font-lock-keyword-face)
                    (cons franca-idl-types-regexp 'font-lock-type-face))))
